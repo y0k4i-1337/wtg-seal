@@ -8,6 +8,7 @@ sphinx = "*"
 pre-commit = "*"
 pytest = "*"
 pytest-cov = "*"
+pytest-datadir = "*"
 
 [packages]
 wtg-seal = {editable = true,path = "."}
