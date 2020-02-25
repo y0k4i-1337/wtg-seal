@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    Dummy conftest.py for wtg_seal.
+    Dummy conftest.py for wtgseal.
 
     If you don't know what this is for, just leave it empty.
     Read more about conftest.py under:
