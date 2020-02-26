@@ -69,6 +69,8 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.todo',
               'sphinx.ext.napoleon']
 extensions.append('recommonmark')
 
+napoleon_google_docstring = False
+
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
