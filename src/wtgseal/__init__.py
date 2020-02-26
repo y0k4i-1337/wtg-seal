@@ -1,4 +1,10 @@
-# -*- coding: utf-8 -*-
+"""A Web Traffic Generator based on SURGE, Statistics and Locust.
+
+WTG-SEAL is a web traffic generator based on a statistical approach
+inspired by SURGE and implemented using Locust.
+
+"""
+
 from pkg_resources import DistributionNotFound, get_distribution
 
 try:
