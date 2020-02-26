@@ -33,6 +33,7 @@ tags
 # Unittest and coverage
 htmlcov/*
 .coverage
+.coveralls.yml
 .tox
 junit.xml
 coverage.xml

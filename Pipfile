@@ -9,6 +9,8 @@ pre-commit = "*"
 pytest = "*"
 pytest-cov = "*"
 pytest-datadir = "*"
+recommonmark = "*"
+coveralls = "*"
 
 [packages]
 wtg-seal = {editable = true,path = "."}

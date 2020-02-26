@@ -1,4 +1,5 @@
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Coverage Status](https://coveralls.io/repos/github/mchoji/wtg-seal/badge.svg?branch=master)](https://coveralls.io/github/mchoji/wtg-seal?branch=master)
 
 # WTG-SEAL
 A **W**eb **T**raffic **G**enerator based on **S**URG**E**, St**a**tistics and
