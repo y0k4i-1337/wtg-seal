@@ -3,6 +3,7 @@
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/mchoji/wtg-seal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mchoji/wtg-seal/context:python)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/09009dc4036a4b5c8b1e5d77fd5f31bf)](https://www.codacy.com/manual/mchoji/wtg-seal?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mchoji/wtg-seal&amp;utm_campaign=Badge_Grade)
 [![Coverage Status](https://coveralls.io/repos/github/mchoji/wtg-seal/badge.svg?branch=master)](https://coveralls.io/github/mchoji/wtg-seal?branch=master)
+[![Requirements Status](https://requires.io/github/mchoji/wtg-seal/requirements.svg?branch=master)](https://requires.io/github/mchoji/wtg-seal/requirements/?branch=master)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![GitHub license](https://img.shields.io/github/license/mchoji/wtg-seal)](https://github.com/mchoji/wtg-seal/blob/master/LICENSE.txt)
 
