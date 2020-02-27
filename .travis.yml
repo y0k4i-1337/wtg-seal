@@ -1,0 +1,30 @@
+# Travis configuration file using the build matrix feature
+# Read more under http://docs.travis-ci.com/user/build-configuration/
+
+sudo: false
+language: python
+virtualenv:
+  system_site_packages: false
+matrix:
+  fast_finish: true
+  include:
+    - python: 3.8
+      env: DISTRIB="ubuntu" COVERAGE="true"
+install:
+  - source tests/travis_install.sh
+before_script:
+  - git config --global user.email "mchoji@users.noreply.github.com"
+  - git config --global user.name "M. Choji"
+script:
+  - python setup.py develop
+  - |
+    if [[ "$COVERAGE" == "true" ]]; then
+      pre-commit install
+      pre-commit run --all-files
+    fi
+after_success:
+  - if [[ "$COVERAGE" == "true" ]]; then coveralls || echo "failed"; fi
+after_script:
+  - travis-cleanup
+cache:
+  pip: true
