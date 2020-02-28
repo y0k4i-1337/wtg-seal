@@ -5,9 +5,9 @@ from wtgseal import utils
 
 def test_parse_objects(datadir):
     expected = [
-        [1],
-        [1, 2, 3],
-        [4, 5, 6, 7, 8, 9, 10]
+        ['/1.txt'],
+        ['/1.txt', '/2.txt', '/3.txt'],
+        ['/4.txt', '/5.txt', '/6.txt', '/7.txt', '/8.txt', '/9.txt', '/10.txt']
     ]
     with (datadir / 'objout.txt').open() as f:
         it = utils.parse_objects(f)

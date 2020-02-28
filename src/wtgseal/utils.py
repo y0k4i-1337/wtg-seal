@@ -5,15 +5,14 @@ parsing.
 
 """
 
-from typing import Counter, Generator, List, TextIO
+from typing import Counter, Generator, List, TextIO  # noqa: F401
 
 
-def parse_objects(file: TextIO) -> Generator[List[int], None, None]:
+def parse_objects(file: TextIO, /) -> Generator[List[str], None, None]:
     """Parse a text file containing objects definitions into lists.
 
     Read a file containing web objects representations and generates
-    lists to be mapped as locust tasks.
-
+    lists of URIs related to each object.
 
     Parameters
     ----------
@@ -26,8 +25,8 @@ def parse_objects(file: TextIO) -> Generator[List[int], None, None]:
 
     Yields
     ------
-    List[int]
-        The representation of the next object, *i.e.* the indexes of the
+    List[str]
+        The representation of the next object, *i.e.* the URIs of the
         files that compose the object.
 
     Notes
@@ -45,10 +44,10 @@ def parse_objects(file: TextIO) -> Generator[List[int], None, None]:
 
     """
     for line in file:
-        yield [int(x) for x in line.split()]
+        yield [f'/{x}.txt' for x in line.split()]
 
 
-def parse_requests(file: TextIO) -> Generator[int, None, None]:
+def parse_requests(file: TextIO, /) -> Generator[int, None, None]:
     """Parse a text file containing a sequence of objects requests.
 
     Read a file containing a sequence of object identifiers which was
@@ -83,7 +82,7 @@ def parse_requests(file: TextIO) -> Generator[int, None, None]:
         yield int(x)
 
 
-def count_requests(file: TextIO) -> Counter:
+def count_requests(file: TextIO, /) -> Counter:
     """Count the number of requests for each object.
 
     Count the number of requests made for each object based on a
