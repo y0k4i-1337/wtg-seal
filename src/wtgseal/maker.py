@@ -48,7 +48,7 @@ def setup_import() -> BlockDef:
     return imports
 
 
-def setup_task(prefix: str = 'task', id: int = None,
+def setup_task(name: str = 'task0',
                weight: int = 1,
                uri: List[str] = ["/", ],
                indlevel: int = 0) -> BlockDef:
@@ -62,11 +62,8 @@ def setup_task(prefix: str = 'task', id: int = None,
     uri : {List[str] = ["/", ]}
         A list of URIs, each starting with a backslash
         like "/index.html"
-    prefix : {str}, optional
-        A prefix for the function name (the default is 'task')
-    id : {int}, optional
-        A numeric identifier for the task (the default is None, which
-        means that no id should be preprended to `prefix`)
+    name : {str}, optional
+        The name for the task to be generated (the default is 'task0')
     weight : {int}, optional
         The weight for the generated task (the default is 1)
     indlevel : {int}, optional
@@ -81,7 +78,7 @@ def setup_task(prefix: str = 'task', id: int = None,
     """
     task = []
     task.append((indlevel, f'@task({weight})'))
-    task.append((indlevel, f'def {prefix}{id}(self):'))
+    task.append((indlevel, f'def {name}(self):'))
     for req in uri:
         task.append((indlevel + 1, f'self.client.get("{req}")'))
     return task
