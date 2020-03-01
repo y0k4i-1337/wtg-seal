@@ -1,14 +1,15 @@
 """Utilities for wtg-seal.
 
-This module offers utilities function for wtg-seal, mainly focused on file
-parsing.
+This module offers utilities function for wtg-seal, mainly focused on
+file parsing.
 
 """
 
-from typing import Counter, Generator, List, TextIO  # noqa: F401
+from typing import Counter, Generator, List, TextIO  # noqa
 
 
-def parse_objects(file: TextIO, /) -> Generator[List[str], None, None]:
+def parse_objects(file: TextIO,
+                  /) -> Generator[List[str], None, None]:  # noqa: E225
     """Parse a text file containing objects definitions into lists.
 
     Read a file containing web objects representations and generates
@@ -47,7 +48,8 @@ def parse_objects(file: TextIO, /) -> Generator[List[str], None, None]:
         yield [f'/{x}.txt' for x in line.split()]
 
 
-def parse_requests(file: TextIO, /) -> Generator[int, None, None]:
+def parse_requests(file: TextIO,
+                   /) -> Generator[int, None, None]:  # noqa: E225
     """Parse a text file containing a sequence of objects requests.
 
     Read a file containing a sequence of object identifiers which was
@@ -82,7 +84,7 @@ def parse_requests(file: TextIO, /) -> Generator[int, None, None]:
         yield int(x)
 
 
-def count_requests(file: TextIO, /) -> Counter:
+def count_requests(file: TextIO, /) -> Counter:  # noqa: E225
     """Count the number of requests for each object.
 
     Count the number of requests made for each object based on a
