@@ -2,6 +2,9 @@
 # Read more under http://docs.travis-ci.com/user/build-configuration/
 
 sudo: false
+env:
+  global:
+    - CC_TEST_REPORTER_ID=f25c7fe3932cb67e4742a70e07646dadbee01e2a82007285431baf283205e0f9
 language: python
 virtualenv:
   system_site_packages: false
@@ -15,6 +18,9 @@ install:
 before_script:
   - git config --global user.email "mchoji@users.noreply.github.com"
   - git config --global user.name "M. Choji"
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 script:
   - python setup.py develop
   - |
@@ -25,6 +31,7 @@ script:
 after_success:
   - if [[ "$COVERAGE" == "true" ]]; then coveralls || echo "failed"; fi
 after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
   - travis-cleanup
 cache:
   pip: true
