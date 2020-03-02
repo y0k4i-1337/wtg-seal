@@ -10,11 +10,10 @@
 set -e
 
 pip install -U pip setuptools
-pip install pipenv
-pipenv install --pre
+pip install -r requirements.txt
 
 if [[ "$COVERAGE" == "true" ]]; then
-    pipenv install --pre --dev
+    pip install -r requirements-dev.txt
 fi
 
 travis-cleanup() {
