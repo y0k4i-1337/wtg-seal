@@ -73,15 +73,22 @@ def setup_task(name: str = 'task0',
 
     Returns
     -------
-    [type]
-        [description]
+    List[Tuple[int, str]]
+        A list where each item represents a line of code to be
+        generated. Each Tuple[int, str] consists of the indentation
+        level for the code and the code itself. `None` is returned in
+        case `uri` is not an iterable.
+
     """
-    task = []
-    task.append((indlevel, f'@task({weight})'))
-    task.append((indlevel, f'def {name}(self):'))
-    for req in uri:
-        task.append((indlevel + 1, f'self.client.get("{req}")'))
-    return task
+    if isinstance(uri, list):
+        task = []
+        task.append((indlevel, f'@task({weight})'))
+        task.append((indlevel, f'def {name}(self):'))
+        for req in uri:
+            task.append((indlevel + 1, f'self.client.get("{req}")'))
+        return task
+    else:
+        raise TypeError('Parameter uri should be a list')
 
 
 if __name__ == "__main__":

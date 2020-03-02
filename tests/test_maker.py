@@ -1,3 +1,5 @@
+import pytest
+
 from wtgseal import __version__ as dist_version
 from wtgseal import maker
 
@@ -23,3 +25,8 @@ def test_setup_task():
         (2, 'self.client.get("/2.txt")'), ]
 
     assert maker.setup_task('obj0', 1, ['/1.txt', '/2.txt'], 1) == expected
+
+
+def test_setup_task_wrong_uri():
+    with pytest.raises(TypeError, match=r'.+should be a list'):
+        maker.setup_task('obj0', 1, 2, 1)
