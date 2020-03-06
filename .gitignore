@@ -10,6 +10,7 @@
 *.pot
 __pycache__/*
 .cache/*
+.mypy_cache
 .*.swp
 */.ipynb_checkpoints/*
 .DS_Store
