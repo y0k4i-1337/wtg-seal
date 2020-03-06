@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 
 from wtgseal import __version__ as dist_version
@@ -13,7 +15,8 @@ def test_setup_header():
 
 
 def test_setup_import():
-    expected = [(0, 'from locust import Locust, TaskSet, task')]
+    expected = [(0, 'from locust import HttpLocust, TaskSet, task'),
+                (0, 'from scipy.stats import pareto')]
     assert maker.setup_import() == expected
 
 
@@ -30,3 +33,61 @@ def test_setup_task():
 def test_setup_task_wrong_uri():
     with pytest.raises(TypeError, match=r'.+should be a list'):
         maker.setup_task('obj0', 1, 2, 1)
+
+
+@pytest.mark.parametrize("n, expected",
+                         [(1, [(0, '')]),
+                          (2, [(0, ''), (0, '')])])
+def test_setup_blank_line(n, expected):
+    assert maker.setup_blank_line(n) == expected
+
+
+def test_setup_blank_line_notint():
+    with pytest.raises(TypeError):
+        maker.setup_blank_line('1')
+
+
+def test_setup_taskset():
+    expected = [(0, 'class UserTestSet(TaskSet):')]
+    assert maker.setup_taskset('UserTestSet') == expected
+
+
+def test_setup_locust():
+    expected = [(0, 'class WebUserLocust(HttpLocust):'),
+                (1, 'weight = 1'),
+                (1, 'task_set = UserTestSet'),
+                (1, 'pareto_obj = pareto(b=1.4, scale=1)'),
+                (1, 'pareto_obj.random_state = 1'),
+                (0, ''),
+                (1, 'def wait_time(self):'),
+                (2, 'return self.pareto_obj.rvs()')]
+    assert maker.setup_locust('WebUserLocust', 'UserTestSet') == expected
+
+
+def test_cmddef_to_str():
+    expected = 'from locust import Locust\n'
+    assert maker.cmddef_to_str((0, 'from locust import Locust')) == expected
+
+
+def test_write_locust(datadir, tmp_path):
+    codeblock = [(0, '# this file is for test purpose only'),
+                 (0, 'from locust import Locust'),
+                 (0, ''),
+                 (0, ''),
+                 (0, 'class MyLocust(Locust):'),
+                 (1, 'task_list = SomeTaskList')]
+    test_file = tmp_path / 'test_write_locust.py'
+    maker.write_locust(test_file, codeblock)
+    expected_file = datadir / 'expected_write_locust.py'
+    assert Path(test_file).read_text() == Path(expected_file).read_text()
+
+
+def test_write_locust_notpath():
+    with pytest.raises(TypeError, match=r'.*Path object'):
+        maker.write_locust(None, [(0, '# this list is corret')])
+
+
+def test_write_locust_notlist(tmp_path):
+    with pytest.raises(TypeError, match=r'Expected a list.*'):
+        dummy_file = Path(tmp_path / 'dummy_file.txt')
+        maker.write_locust(dummy_file, (0, '# should be a list of tuples'))
