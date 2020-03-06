@@ -110,3 +110,11 @@ def count_requests(file: TextIO, /) -> Counter:  # noqa: E225
     parser = parse_requests(file)
     frequencies = Counter(parser)
     return frequencies
+
+
+def calc_weights(freqs: Counter) -> Counter:
+    weights = Counter(freqs)
+    _, least = freqs.most_common()[-1]
+    for key in weights:
+        weights[key] = round(weights[key] / least)
+    return weights
