@@ -117,8 +117,7 @@ pipenv run pre-commit autoupdate
 
 ## Versioning
 Versions defined according to [SemVer](https://semver.org). For the versions
-available, see the [tags on this repository]
-(https://github.com/mchoji/wtg-seal/tags).
+available, see the [tags on this repository](https://github.com/mchoji/wtg-seal/tags).
 
 ## Authors
 - M. Choji - [mchoji](https://github.com/mchoji)
