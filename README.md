@@ -7,12 +7,9 @@
 [![Requirements Status](https://requires.io/github/mchoji/wtg-seal/requirements.svg?branch=master)](https://requires.io/github/mchoji/wtg-seal/requirements/?branch=master)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![GitHub license](https://img.shields.io/github/license/mchoji/wtg-seal)](https://github.com/mchoji/wtg-seal/blob/master/LICENSE.txt)
-[![PyPI version fury.io](https://badge.fury.io/py/wtg-seal.svg)]
-(https://pypi.python.org/pypi/wtg-seal/)
-[![PyPI pyversions](https://img.shields.io/pypi/pyversions/wtg-seal.svg)]
-(https://pypi.python.org/pypi/wtg-seal/)
-[![PyPI status](https://img.shields.io/pypi/status/wtg-seal.svg)]
-(https://pypi.python.org/pypi/wtg-seal/)
+[![PyPI version fury.io](https://badge.fury.io/py/wtg-seal.svg)](https://pypi.python.org/pypi/wtg-seal/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/wtg-seal.svg)](https://pypi.python.org/pypi/wtg-seal/)
+[![PyPI status](https://img.shields.io/pypi/status/wtg-seal.svg)](https://pypi.python.org/pypi/wtg-seal/)
 
 # WTG-SEAL
 A **W**eb **T**raffic **G**enerator based on **S**URG**E**, St**a**tistics and
