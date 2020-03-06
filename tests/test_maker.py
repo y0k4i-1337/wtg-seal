@@ -75,7 +75,7 @@ def test_write_locust(datadir, tmp_path):
                  (0, ''),
                  (0, ''),
                  (0, 'class MyLocust(Locust):'),
-                 (1, 'task_list = SomeTaskList')]
+                 (1, 'pass')]
     test_file = tmp_path / 'test_write_locust.py'
     maker.write_locust(test_file, codeblock)
     expected_file = datadir / 'expected_write_locust.py'
