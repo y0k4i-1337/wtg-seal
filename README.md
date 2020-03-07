@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.com/mchoji/wtg-seal.svg?branch=master)](https://travis-ci.com/mchoji/wtg-seal)
+[![Documentation Status](https://readthedocs.org/projects/wtg-seal/badge/?version=latest)](https://wtg-seal.readthedocs.io/en/latest/?badge=latest)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/mchoji/wtg-seal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mchoji/wtg-seal/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/mchoji/wtg-seal.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/mchoji/wtg-seal/context:python)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2ad3251ae12e112ae33e/maintainability)](https://codeclimate.com/github/mchoji/wtg-seal/maintainability)
