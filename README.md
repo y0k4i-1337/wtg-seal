@@ -11,6 +11,7 @@
 [![PyPI version fury.io](https://badge.fury.io/py/wtg-seal.svg)](https://pypi.python.org/pypi/wtg-seal/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/wtg-seal.svg)](https://pypi.python.org/pypi/wtg-seal/)
 [![PyPI status](https://img.shields.io/pypi/status/wtg-seal.svg)](https://pypi.python.org/pypi/wtg-seal/)
+[![DOI](https://zenodo.org/badge/242190083.svg)](https://zenodo.org/badge/latestdoi/242190083)
 
 # WTG-SEAL
 A **W**eb **T**raffic **G**enerator based on **S**URG**E**, St**a**tistics and
