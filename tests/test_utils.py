@@ -3,14 +3,14 @@ from collections import Counter
 from wtgseal import utils
 
 
-def test_parse_objects(shared_datadir):
+def test_parse_documents(shared_datadir):
     expected = [
         ['/1.txt'],
         ['/1.txt', '/2.txt', '/3.txt'],
         ['/4.txt', '/5.txt', '/6.txt', '/7.txt', '/8.txt', '/9.txt', '/10.txt']
     ]
     with (shared_datadir / 'objout.txt').open() as f:
-        it = utils.parse_objects(f)
+        it = utils.parse_documents(f)
         for i, obj in enumerate(it):
             assert obj == expected[i]
 

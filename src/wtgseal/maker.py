@@ -12,8 +12,6 @@ from . import __version__ as wtgseal_version
 from . import dist_name as wtgseal_dist_name
 from . import dist_url as wtgseal_dist_url
 
-# from .utils import count_requests, parse_objects
-
 CmdDef = Tuple[int, str]
 BlockDef = List[CmdDef]
 
@@ -41,6 +39,7 @@ def setup_header(*, dist: str = wtgseal_dist_name,
     Generate a program header citing the distribution name from where
     it was generated, the current version and the url where one can find
     further information.
+
     """
     header = []
     header.append((0,
@@ -59,6 +58,7 @@ def setup_import() -> BlockDef:
     BlockDef
         A list of code representation, where each item represents a line
         of import.
+
     """
     imports = []
     imports.append((0, 'from locust import HttpLocust, TaskSet, task'))
@@ -72,7 +72,7 @@ def setup_task(name: str = 'task0',
                indlevel: int = 0) -> BlockDef:
     """Generate code to define a locust task.
 
-    Generate code to definie a locust task according to the given
+    Generate code to define a locust task according to the given
     parameters.
 
     Parameters
@@ -166,6 +166,7 @@ def setup_locust(name: str = 'MyLocust',
     See Also
     --------
     locust.Locust
+
     """
     locust = [(indlevel, f'class {name}(HttpLocust):'),
               (indlevel + 1, f'weight = {weight}'),
@@ -178,7 +179,23 @@ def setup_locust(name: str = 'MyLocust',
     return locust
 
 
-def write_locust(path: Path, filedef: BlockDef, indentby: str = ' ' * 4) -> None:
+def write_locust(path: Path, filedef: BlockDef,
+                 indentby: str = ' ' * 4) -> None:
+    """Write python code to file.
+
+    Convert blocks of code definition and generate the actual code,
+    writing it into a file.
+
+    Parameters
+    ----------
+    path : {Path}
+        The file to be written.
+    filedef : {BlockDef}
+        The representation of the code to be written.
+    indentby : {str}, optional
+        The indentation to be adopted (the default is ' ' * 4)
+
+    """
     if not isinstance(path, Path):
         raise TypeError('Expected a pathlib.Path object')
     if not isinstance(filedef, list):

@@ -8,11 +8,11 @@ file parsing.
 from typing import Counter, Generator, List, TextIO  # noqa
 
 
-def parse_objects(file: TextIO,
-                  /) -> Generator[List[str], None, None]:  # noqa: E225
-    """Parse a text file containing objects definitions into lists.
+def parse_documents(file: TextIO,
+                    /) -> Generator[List[str], None, None]:  # noqa: E225
+    """Parse a text file containing documents definitions into lists.
 
-    Read a file containing web objects representations and generates
+    Read a file containing web documents representations and generates
     lists of URIs related to each object.
 
     Parameters
@@ -20,15 +20,15 @@ def parse_objects(file: TextIO,
     file : {TextIO}
         A file handler to the file to be parsed. The file should contain
         one or more lines, which being a space-separated list of
-        integers. Each line represents an object to be retrieved from a
-        web server. An object is composed by one or more files, given by
+        integers. Each line represents a document to be retrieved from a
+        web server. A document is made of one or more files, given by
         the integers.
 
     Yields
     ------
     List[str]
-        The representation of the next object, *i.e.* the URIs of the
-        files that compose the object.
+        The representation of the next document, *i.e.* the URIs of the
+        files that compose the document.
 
     Notes
     -----
@@ -50,9 +50,9 @@ def parse_objects(file: TextIO,
 
 def parse_requests(file: TextIO,
                    /) -> Generator[int, None, None]:  # noqa: E225
-    """Parse a text file containing a sequence of objects requests.
+    """Parse a text file containing a sequence of documents requests.
 
-    Read a file containing a sequence of object identifiers which was
+    Read a file containing a sequence of documents identifiers which was
     to be requested to a web server.
 
     Parameters
@@ -64,7 +64,7 @@ def parse_requests(file: TextIO,
     Yields
     ------
     int
-        The index of the next object to be requested.
+        The index of the next document to be requested.
 
     Notes
     -----
@@ -85,22 +85,22 @@ def parse_requests(file: TextIO,
 
 
 def count_requests(file: TextIO, /) -> Counter:  # noqa: E225
-    """Count the number of requests for each object.
+    """Count the number of requests for each document.
 
-    Count the number of requests made for each object based on a
-    given sequence of object requests.
+    Count the number of requests made for each document based on a
+    given sequence of document requests.
 
     Parameters
     ----------
     file : {TextIO}
         A file containing a sequence of integers representing indexes of
-        objects in a web server.
+        documents in a web server.
 
     Returns
     -------
     Frequency
 
-        A `collection.Counter` with the frequencies for each object.
+        A `collection.Counter` with the frequencies for each document.
 
     See Also
     --------
@@ -113,6 +113,22 @@ def count_requests(file: TextIO, /) -> Counter:  # noqa: E225
 
 
 def calc_weights(freqs: Counter) -> Counter:
+    """Calculate weights for locust tasks.
+
+    Calculate locust task weights based on the frequency that each
+    document was requested, as given by `freqs`.
+
+    Parameters
+    ----------
+    freqs : {Counter}
+        The number of requests for each document.
+
+    Returns
+    -------
+    Counter
+        The weight for each document when mapped as a locust task.
+
+    """
     weights = Counter(freqs)
     _, least = freqs.most_common()[-1]
     for key in weights:

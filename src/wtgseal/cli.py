@@ -85,7 +85,8 @@ def parse_args(args: List[str]) -> Dict:
 
 
 def validate_file(path: Path) -> None:
-    """
+    """Validate a given file path.
+
     Validate if a given path exists and it is a file, throwing an
     exception otherwise.
 
@@ -105,7 +106,8 @@ def validate_file(path: Path) -> None:
 
 
 def run_wtgseal(opts: Dict) -> None:
-    """
+    """Create a locust file.
+
     Call the python API to create a locust file, according to the
     inputs provided.
 
@@ -143,13 +145,12 @@ def run_wtgseal(opts: Dict) -> None:
     out.extend(maker.setup_blank_line())
     out.extend(maker.setup_taskset(opts['taskset']))
     with docdef.open(mode='r') as fd:
-        docs = utils.parse_objects(fd)
+        docs = utils.parse_documents(fd)
         for i, doc in enumerate(docs):
             out.extend(maker.setup_task(f'getdoc{i}', weights[i], doc, 1))
             out.extend(maker.setup_blank_line())
     out.extend(maker.setup_blank_line())
     out.extend(maker.setup_locust(opts['locust'], opts['taskset'], 1))
-    out.extend(maker.setup_blank_line())
     maker.write_locust(outfile, out)
 
 
