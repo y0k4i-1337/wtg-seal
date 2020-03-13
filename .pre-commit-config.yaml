@@ -18,7 +18,7 @@ repos:
     args: ['--fix=no']
 
 - repo: https://gitlab.com/pycqa/flake8
-  rev: 8f9b4931b9a28896fb43edccb23016a7540f5b82
+  rev: 3.7.9
   hooks:
   - id: flake8
     args: ['--max-line-length=88', '--ignore=E225']  # default of Black
