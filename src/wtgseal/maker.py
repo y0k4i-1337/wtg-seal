@@ -77,13 +77,13 @@ def setup_task(name: str = 'task0',
 
     Parameters
     ----------
-    uri : {List[str] = ["/", ]}
-        A list of URIs, each starting with a backslash
-        like "/index.html"
     name : {str}, optional
         The name for the task to be generated (the default is 'task0')
     weight : {int}, optional
         The weight for the generated task (the default is 1)
+    uri : {List[str] = ["/", ]}
+        A list of URIs, each starting with a backslash
+        like "/index.html"
     indlevel : {int}, optional
         The indentation level where the task definition should begin
         (the default is 0, which leads to code beginning at the left
@@ -116,6 +116,8 @@ def setup_taskset(name: str = 'MyTaskSet') -> BlockDef:
 
 def setup_locust(name: str = 'MyLocust',
                  taskset: str = 'MyTaskSet',
+                 /, *,
+                 wait_seed: int = 1,
                  weight: int = 1,
                  indlevel: int = 0) -> BlockDef:
     """Generate a locust (user behaviour) representation.
@@ -131,6 +133,9 @@ def setup_locust(name: str = 'MyLocust',
     taskset : {str}, optional
         The taskset name this class will use (the default is
         'MyTaskSet')
+    wait_seed : {int}, optional
+        The seed to be used for the Pareto distribution from where the
+        wait times are retrieved (the default is 1)
     weight : {int}, optional
         The weight for this class. The greater this value, the greater
         the chances this class will be spawned. Only important in case
@@ -172,7 +177,7 @@ def setup_locust(name: str = 'MyLocust',
               (indlevel + 1, f'weight = {weight}'),
               (indlevel + 1, f'task_set = {taskset}'),
               (indlevel + 1, 'pareto_obj = pareto(b=1.4, scale=1)'),
-              (indlevel + 1, 'pareto_obj.random_state = 1')]
+              (indlevel + 1, f'pareto_obj.random_state = {wait_seed}')]
     locust.extend(setup_blank_line())
     locust.extend([(indlevel + 1, 'def wait_time(self):'),
                    (indlevel + 2, 'return self.pareto_obj.rvs()')])

@@ -17,6 +17,10 @@ def test_main(tmp_path, shared_datadir, datadir):
         'UserTestSet',
         '-l',
         'WebUserLocust',
+        '-w',
+        '2',
+        '-s',
+        '2',
         str(docdef),
         str(docseq)])
     expected = (datadir / 'locustfile.py').read_text().format(dist_version)

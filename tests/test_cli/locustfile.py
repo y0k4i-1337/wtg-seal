@@ -28,10 +28,10 @@ class UserTestSet(TaskSet):
 
 
 class WebUserLocust(HttpLocust):
-    weight = 1
+    weight = 2
     task_set = UserTestSet
     pareto_obj = pareto(b=1.4, scale=1)
-    pareto_obj.random_state = 1
+    pareto_obj.random_state = 2
 
     def wait_time(self):
         return self.pareto_obj.rvs()

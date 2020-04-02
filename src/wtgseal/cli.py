@@ -42,6 +42,20 @@ def add_default_args(parser: argparse.ArgumentParser) -> None:
         help='class name for Taskset (default: UserBehaviour)',
         default='UserBehaviour')
     parser.add_argument(
+        '-w',
+        '--weight',
+        help='weight for Locust (default: 1)',
+        default=1,
+        type=int)
+    parser.add_argument(
+        '-s',
+        '--seed',
+        help='seed for wait time values generator (default: 1)',
+        default=1,
+        type=int,
+        metavar='SEED',
+        dest='wait_seed')
+    parser.add_argument(
         '-o',
         '--output',
         help='output file name (default: locustfile.py)',
@@ -150,7 +164,8 @@ def run_wtgseal(opts: Dict) -> None:
             out.extend(maker.setup_task(f'getdoc{i}', weights[i], doc, 1))
             out.extend(maker.setup_blank_line())
     out.extend(maker.setup_blank_line())
-    out.extend(maker.setup_locust(opts['locust'], opts['taskset'], 1))
+    out.extend(maker.setup_locust(opts['locust'], opts['taskset'],
+               weight=opts['weight'], wait_seed=opts['wait_seed']))
     maker.write_locust(outfile, out)
 
 
