@@ -20,19 +20,38 @@ def test_setup_import():
     assert maker.setup_import() == expected
 
 
-def test_setup_task():
+def test_setup_csv_stats_interval():
+    expected = [(0, 'import locust.stats'),
+                (0, 'locust.stats.CSV_STATS_INTERVAL_SEC = 5')]
+    assert maker.setup_csv_stats_interval(5) == expected
+
+
+def test_setup_task_noname():
     expected = [
         (1, '@task(1)'),
         (1, 'def obj0(self):'),
         (2, 'self.client.get("/1.txt")'),
         (2, 'self.client.get("/2.txt")'), ]
 
-    assert maker.setup_task('obj0', 1, ['/1.txt', '/2.txt'], 1) == expected
+    assert maker.setup_task('obj0', ['/1.txt', '/2.txt'],
+                            weight=1, indlevel=1) == expected
+
+
+def test_setup_task_withname():
+    expected = [
+        (1, '@task(1)'),
+        (1, 'def obj0(self):'),
+        (2, 'self.client.get("/1.txt", name="doc#0")'),
+        (2, 'self.client.get("/2.txt", name="doc#0")'), ]
+
+    assert maker.setup_task('obj0', ['/1.txt', '/2.txt'],
+                            weight=1, indlevel=1,
+                            group_name='doc#0') == expected
 
 
 def test_setup_task_wrong_uri():
     with pytest.raises(TypeError, match=r'.+should be a list'):
-        maker.setup_task('obj0', 1, 2, 1)
+        maker.setup_task('obj0', 1, weight=2, indlevel=1)
 
 
 @pytest.mark.parametrize("n, expected",

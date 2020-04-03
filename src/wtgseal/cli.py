@@ -10,6 +10,8 @@ import sys
 from pathlib import Path
 from typing import Dict, List
 
+import locust.stats
+
 from . import __version__ as wtgseal_version
 from . import maker, utils
 
@@ -55,6 +57,19 @@ def add_default_args(parser: argparse.ArgumentParser) -> None:
         type=int,
         metavar='SEED',
         dest='wait_seed')
+    parser.add_argument(
+        '--csv-stats-interval',
+        help='the frequency (in seconds) with which stats data are written to '
+             'CSV file',
+        type=int,
+        metavar='INTERVAL',
+        dest='csv_stats_interval')
+    parser.add_argument(
+        '--group-by-doc',
+        help='group URLs together in Locust\'s statistics according to '
+        'document id',
+        action='store_true',
+        dest='group_by_doc')
     parser.add_argument(
         '-o',
         '--output',
@@ -155,13 +170,23 @@ def run_wtgseal(opts: Dict) -> None:
     out.extend(maker.setup_header())
     out.extend(maker.setup_blank_line())
     out.extend(maker.setup_import())
+    if (opts['csv_stats_interval'] is not None
+            and opts['csv_stats_interval']
+            != locust.stats.CSV_STATS_INTERVAL_SEC):
+        out.extend(maker.setup_csv_stats_interval(opts['csv_stats_interval']))
     out.extend(maker.setup_blank_line())
     out.extend(maker.setup_blank_line())
     out.extend(maker.setup_taskset(opts['taskset']))
     with docdef.open(mode='r') as fd:
         docs = utils.parse_documents(fd)
         for i, doc in enumerate(docs):
-            out.extend(maker.setup_task(f'getdoc{i}', weights[i], doc, 1))
+            if opts['group_by_doc']:
+                out.extend(maker.setup_task(f'getdoc{i}', doc,
+                                            weight=weights[i], indlevel=1,
+                                            group_name=f'doc#{i}'))
+            else:
+                out.extend(maker.setup_task(f'getdoc{i}', doc,
+                                            weight=weights[i], indlevel=1))
             out.extend(maker.setup_blank_line())
     out.extend(maker.setup_blank_line())
     out.extend(maker.setup_locust(opts['locust'], opts['taskset'],

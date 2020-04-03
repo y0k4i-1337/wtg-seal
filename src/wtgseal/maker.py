@@ -51,7 +51,8 @@ def setup_header(*, dist: str = wtgseal_dist_name,
 def setup_import() -> BlockDef:
     """Generate the import lines for a locust file.
 
-    Generate code to import the modules needed for running a locust file
+    Generate code to import the modules needed for running a locust
+    file.
 
     Returns
     -------
@@ -66,9 +67,37 @@ def setup_import() -> BlockDef:
     return imports
 
 
+def setup_csv_stats_interval(t: int, /) -> BlockDef:
+    """Generate import and settings for CSV stats interval.
+
+    Generate code to import locust.stats module and set the property
+    CSV_STATS_INTERVAL_SEC.
+
+    Parameters
+    ----------
+    t : {int}
+        How frequently (in seconds) CSV data are to be written. This
+        has only effect when `--csv-full-history` is passed to locust
+        run.
+
+    Returns
+    -------
+    BlockDef
+        A list of code representation, where each item represents a line
+        of import.
+
+    """
+    block = []
+    block.append((0, 'import locust.stats'))
+    block.append((0, f'locust.stats.CSV_STATS_INTERVAL_SEC = {t}'))
+    return block
+
+
 def setup_task(name: str = 'task0',
-               weight: int = 1,
                uri: List[str] = ["/", ],
+               /, *,
+               weight: int = 1,
+               group_name: str = None,
                indlevel: int = 0) -> BlockDef:
     """Generate code to define a locust task.
 
@@ -84,6 +113,10 @@ def setup_task(name: str = 'task0',
     uri : {List[str] = ["/", ]}
         A list of URIs, each starting with a backslash
         like "/index.html"
+    group_name : str
+        Group URLs together in Locust's statistics using this name (the
+        default is None, which leads to calculate statistics for each
+        URL separately)
     indlevel : {int}, optional
         The indentation level where the task definition should begin
         (the default is 0, which leads to code beginning at the left
@@ -102,8 +135,14 @@ def setup_task(name: str = 'task0',
         task = []
         task.append((indlevel, f'@task({weight})'))
         task.append((indlevel, f'def {name}(self):'))
-        for req in uri:
-            task.append((indlevel + 1, f'self.client.get("{req}")'))
+        if group_name is None:
+            for req in uri:
+                task.append((indlevel + 1,
+                             f'self.client.get("{req}")'))
+        else:
+            for req in uri:
+                task.append((indlevel + 1,
+                             f'self.client.get("{req}", name="{group_name}")'))
         return task
     else:
         raise TypeError('Parameter uri should be a list')
@@ -129,13 +168,13 @@ def setup_locust(name: str = 'MyLocust',
     Parameters
     ----------
     name : {str}, optional
-        The new class name (the default is 'MyLocust')
+        The new class name (the default is 'MyLocust').
     taskset : {str}, optional
         The taskset name this class will use (the default is
-        'MyTaskSet')
+        'MyTaskSet').
     wait_seed : {int}, optional
         The seed to be used for the Pareto distribution from where the
-        wait times are retrieved (the default is 1)
+        wait times are retrieved (the default is 1).
     weight : {int}, optional
         The weight for this class. The greater this value, the greater
         the chances this class will be spawned. Only important in case
@@ -144,7 +183,7 @@ def setup_locust(name: str = 'MyLocust',
     indlevel : {int}, optional
         The indentation level where the task definition should begin
         (the default is 0, which leads to code beginning at the left
-        margin)
+        margin).
 
     Returns
     -------
