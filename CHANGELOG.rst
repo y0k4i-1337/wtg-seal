@@ -5,14 +5,21 @@ Changelog
 Current version
 ===============
 
+Version 0.3.0, 2020-04-03
+-------------------------
+
+- Option to control CSV statistics interval
+- Now it is possible to group requests based on document id to show in
+Locust's statistics
+
+Older versions
+==============
+
 Version 0.2.0, 2020-04-02
 -------------------------
 
 - Add cli options for class weight and seed for wait time generator
 - Function `setup_locust` now has positional-only and keyword-only arguments
-
-Older versions
-==============
 
 Version 0.1.2, 2020-03-07
 -------------------------
