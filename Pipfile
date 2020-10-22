@@ -11,9 +11,20 @@ pytest-cov = "*"
 pytest-datadir = "*"
 recommonmark = "*"
 coveralls = "*"
+pycodestyle = "*"
+pydocstyle = "*"
+bandit = "*"
+flake8 = "*"
+mypy = "*"
+yapf = "*"
 
 [packages]
 wtg-seal = {editable = true,path = "."}
+yapf = {editable = true, path = "."}
+"zope.interface" = {editable = true, path = "."}
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true
