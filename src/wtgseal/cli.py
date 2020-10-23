@@ -189,7 +189,7 @@ def run_wtgseal(opts: Dict) -> None:
                                             weight=weights[i], indlevel=1))
             out.extend(maker.setup_blank_line())
     out.extend(maker.setup_blank_line())
-    out.extend(maker.setup_locust(opts['locust'], opts['taskset'],
+    out.extend(maker.setup_user(opts['locust'], opts['taskset'],
                weight=opts['weight'], wait_seed=opts['wait_seed']))
     maker.write_locust(outfile, out)
 

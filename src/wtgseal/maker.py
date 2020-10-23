@@ -1,7 +1,7 @@
 """Functions to generate locust code.
 
 This module contains functions to generate locust code, *i.e.* it
-defines tasks, tasksets and locusts.
+defines tasks, tasksets and users.
 
 """
 
@@ -62,7 +62,7 @@ def setup_import() -> BlockDef:
 
     """
     imports = []
-    imports.append((0, 'from locust import HttpLocust, TaskSet, task'))
+    imports.append((0, 'from locust import HttpUser, TaskSet, task'))
     imports.append((0, 'from scipy.stats import pareto'))
     return imports
 
@@ -87,6 +87,10 @@ def setup_csv_stats_interval(t: int, /) -> BlockDef:
         of import.
 
     """
+    if not isinstance(t, int):
+        raise TypeError('Argument should be an integer')
+    if t < 1:
+        raise ValueError('Interval should be greater than zero')
     block = []
     block.append((0, 'import locust.stats'))
     block.append((0, f'locust.stats.CSV_STATS_INTERVAL_SEC = {t}'))
@@ -153,32 +157,31 @@ def setup_taskset(name: str = 'MyTaskSet') -> BlockDef:
     return [(0, f'class {name}(TaskSet):')]
 
 
-def setup_locust(name: str = 'MyLocust',
-                 taskset: str = 'MyTaskSet',
-                 /, *,
-                 wait_seed: int = 1,
-                 weight: int = 1,
-                 indlevel: int = 0) -> BlockDef:
-    """Generate a locust (user behaviour) representation.
+def setup_user(name: str = 'MyUser',
+               taskset: str = 'MyTaskSet',
+               /, *,
+               wait_seed: int = 1,
+               weight: int = 1,
+               indlevel: int = 0) -> BlockDef:
+    """Generate a model for user behaviour.
 
-    Generate a representation for a Locust subclass, which represents an
+    Generate a representation for a User subclass, which represents an
     user behaviour. The representation contains the class name, taskset,
     and a wait time based on a Pareto distribution.
 
     Parameters
     ----------
     name : {str}, optional
-        The new class name (the default is 'MyLocust').
+        The new class name (the default is 'MyUser').
     taskset : {str}, optional
-        The taskset name this class will use (the default is
-        'MyTaskSet').
+        The tasksets this class will use (the default is 'MyTaskSet').
     wait_seed : {int}, optional
         The seed to be used for the Pareto distribution from where the
         wait times are retrieved (the default is 1).
     weight : {int}, optional
         The weight for this class. The greater this value, the greater
         the chances this class will be spawned. Only important in case
-        you have more than one Locust subclass and with they be spawned
+        you have more than one User subclass and with they be spawned
         at different rates.
     indlevel : {int}, optional
         The indentation level where the task definition should begin
@@ -212,9 +215,9 @@ def setup_locust(name: str = 'MyLocust',
     locust.Locust
 
     """
-    locust = [(indlevel, f'class {name}(HttpLocust):'),
+    locust = [(indlevel, f'class {name}(HttpUser):'),
               (indlevel + 1, f'weight = {weight}'),
-              (indlevel + 1, f'task_set = {taskset}'),
+              (indlevel + 1, f'tasks = [{taskset}]'),
               (indlevel + 1, 'pareto_obj = pareto(b=1.4, scale=1)'),
               (indlevel + 1, f'pareto_obj.random_state = {wait_seed}')]
     locust.extend(setup_blank_line())

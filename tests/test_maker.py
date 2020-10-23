@@ -15,7 +15,7 @@ def test_setup_header():
 
 
 def test_setup_import():
-    expected = [(0, 'from locust import HttpLocust, TaskSet, task'),
+    expected = [(0, 'from locust import HttpUser, TaskSet, task'),
                 (0, 'from scipy.stats import pareto')]
     assert maker.setup_import() == expected
 
@@ -71,16 +71,16 @@ def test_setup_taskset():
     assert maker.setup_taskset('UserTestSet') == expected
 
 
-def test_setup_locust():
-    expected = [(0, 'class WebUserLocust(HttpLocust):'),
+def test_setup_user():
+    expected = [(0, 'class WebUserLocust(HttpUser):'),
                 (1, 'weight = 1'),
-                (1, 'task_set = UserTestSet'),
+                (1, 'tasks = [UserTestSet]'),
                 (1, 'pareto_obj = pareto(b=1.4, scale=1)'),
                 (1, 'pareto_obj.random_state = 1'),
                 (0, ''),
                 (1, 'def wait_time(self):'),
                 (2, 'return self.pareto_obj.rvs()')]
-    assert maker.setup_locust('WebUserLocust', 'UserTestSet') == expected
+    assert maker.setup_user('WebUserLocust', 'UserTestSet') == expected
 
 
 def test_cmddef_to_str():
