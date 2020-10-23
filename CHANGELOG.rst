@@ -5,15 +5,21 @@ Changelog
 Current version
 ===============
 
+Version 0.4.0, 2020-10-23
+-------------------------
+
+- Mainly focused on adapt code according to changes added in Locust v1.0.0.
+  For details, refer to https://docs.locust.io/en/1.0/changelog.html.
+
+Older versions
+==============
+
 Version 0.3.0, 2020-04-03
 -------------------------
 
 - Option to control CSV statistics interval
 - Now it is possible to group requests based on document id to show in
-Locust's statistics
-
-Older versions
-==============
+  Locust's statistics
 
 Version 0.2.0, 2020-04-02
 -------------------------
