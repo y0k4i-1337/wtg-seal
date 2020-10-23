@@ -1,33 +1,21 @@
 ========
-wtg-seal
+WTG-SEAL
 ========
 
-This is the documentation of **wtg-seal**.
+A Web Traffic Generator based on SURGE, Statistics and Locust.
 
-.. note::
+Overview
+========
 
-    This is the main page of your project's `Sphinx`_ documentation.
-    It is formatted in `reStructuredText`_. Add additional pages
-    by creating rst-files in ``docs`` and adding them to the `toctree`_ below.
-    Use then `references`_ in order to link them from this page, e.g.
-    :ref:`authors` and :ref:`changes`.
-
-    It is also possible to refer to the documentation of other Python packages
-    with the `Python domain syntax`_. By default you can reference the
-    documentation of `Sphinx`_, `Python`_, `NumPy`_, `SciPy`_, `matplotlib`_,
-    `Pandas`_, `Scikit-Learn`_. You can add more by extending the
-    ``intersphinx_mapping`` in your Sphinx's ``conf.py``.
-
-    The pretty useful extension `autodoc`_ is activated by default and lets
-    you include documentation from docstrings. Docstrings can be written in
-    `Google style`_ (recommended!), `NumPy style`_ and `classical style`_.
+WTG-SEAL is a web traffic generator based on a statistical approach inspired
+by SURGE [1]_ and implemented using `Locust`_.
 
 
 Contents
 ========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    License <license>
    Authors <authors>
@@ -56,4 +44,10 @@ Indices and tables
 .. _autodoc: http://www.sphinx-doc.org/en/stable/ext/autodoc.html
 .. _Google style: https://github.com/google/styleguide/blob/gh-pages/pyguide.md#38-comments-and-docstrings
 .. _NumPy style: https://numpydoc.readthedocs.io/en/latest/format.html
-.. _classical style: http://www.sphinx-doc.org/en/stable/domains.html#info-field-lists
+.. _classical style: http://www.sphinx-doc.org/en/stable/domainshtml#info-field-lists
+.. _Locust: https://github.com/locustio/locust
+
+.. [1] Barford, P., & Crovella, M. (1998, June). Generating
+   representative web workloads for network and server performance evaluation.
+   In *Proceedings of the 1998 ACM SIGMETRICS joint international conference on
+   Measurement and modeling of computer systems* (pp. 151-160).
