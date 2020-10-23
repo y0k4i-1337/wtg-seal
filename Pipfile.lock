@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "dc0b4b88d1334e2bf1aa58b6c988393d68c90453d122ae7dfb7c2525e566c2ee"
+            "sha256": "7078a4f6b23d74067b3cc5792752a4cab08ba2ebbf2b0fca5b905a1881625190"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -413,10 +413,6 @@
             "editable": true,
             "path": "."
         },
-        "yapf": {
-            "editable": true,
-            "path": "."
-        },
         "zope-interface": {
             "editable": true,
             "path": "."
@@ -427,10 +423,6 @@
                 "sha256:5e76517f5b9b119acf37ca8819781db6c16ea433f7e2062c4afc2b6fbedb1330"
             ],
             "version": "==4.5.0"
-        },
-        "zope.interface": {
-            "editable": true,
-            "path": "."
         }
     },
     "develop": {
@@ -1008,8 +1000,12 @@
             "version": "==20.0.35"
         },
         "yapf": {
-            "editable": true,
-            "path": "."
+            "hashes": [
+                "sha256:3000abee4c28daebad55da6c85f3cd07b8062ce48e2e9943c8da1b9667d48427",
+                "sha256:3abf61ba67cf603069710d30acbc88cfe565d907e16ad81429ae90ce9651e0c9"
+            ],
+            "index": "pypi",
+            "version": "==0.30.0"
         }
     }
 }
