@@ -26,6 +26,16 @@ def test_setup_csv_stats_interval():
     assert maker.setup_csv_stats_interval(5) == expected
 
 
+def test_setup_csv_stats_interval_notint():
+    with pytest.raises(TypeError, match=r'.+should be an integer'):
+        maker.setup_csv_stats_interval('1')
+
+
+def test_setup_csv_stats_interval_negative():
+    with pytest.raises(ValueError, match=r'.+should be greater than zero'):
+        maker.setup_csv_stats_interval(-10)
+
+
 def test_setup_task_noname():
     expected = [
         (1, '@task(1)'),
